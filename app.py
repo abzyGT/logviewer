@@ -63,7 +63,7 @@ def strtobool(val):
 
 @app.listener("before_server_start")
 async def init(app, loop):
-    app.ctx.db = AsyncIOMotorClient(MONGO_URI).modmail_bot
+app.ctx.db = AsyncIOMotorClient(MONGO_URI, tls=True, tlsAllowInvalidCertificates=True).modmail_bot
     use_attachment_proxy = strtobool(os.getenv("USE_ATTACHMENT_PROXY", "no"))
     if use_attachment_proxy:
         app.ctx.attachment_proxy_url = os.getenv("ATTACHMENT_PROXY_URL", "https://cdn.discordapp.xyz")
